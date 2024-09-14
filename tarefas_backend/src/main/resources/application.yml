@@ -1,0 +1,17 @@
+spring:
+  application:
+  name: tarefas_backend
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?createDatabaseIfNotExist=true
+    username: ${DB_USER}
+    password: ${DB_PASS}
+
+  flyway:
+    defaultSchema: tarefas
+    baselineOnMigrate: true
+    table: flyway_schema_history_tarefas
