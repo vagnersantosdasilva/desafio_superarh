@@ -6,6 +6,7 @@ import com.superarh.tarefas_backend.model.dto.Task.TaskCreateDto;
 import com.superarh.tarefas_backend.model.dto.Task.TaskResponse;
 import com.superarh.tarefas_backend.model.dto.Task.TaskUpdateDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
@@ -13,5 +14,11 @@ public interface TaskMapper {
     TaskMapper INSTANCE = Mappers.getMapper(TaskMapper.class);
     Task toEntity(TaskCreateDto taskCreateDto);
     Task toUpdateEntity (TaskUpdateDto taskUpdateDto);
+
+    @Mapping(source = "listTask.id", target = "listTaskId")
     TaskResponse toDto(Task task);
+
+
+
+
 }
