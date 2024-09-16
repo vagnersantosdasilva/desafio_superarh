@@ -12,7 +12,11 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface TaskMapper {
     TaskMapper INSTANCE = Mappers.getMapper(TaskMapper.class);
+
+    @Mapping(source = "listTaskId", target = "listTask.id")
     Task toEntity(TaskCreateDto taskCreateDto);
+
+    @Mapping(source = "listTaskId", target = "listTask.id")
     Task toUpdateEntity (TaskUpdateDto taskUpdateDto);
 
     @Mapping(source = "listTask.id", target = "listTaskId")
