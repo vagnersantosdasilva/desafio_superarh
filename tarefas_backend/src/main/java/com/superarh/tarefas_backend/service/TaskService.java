@@ -1,5 +1,6 @@
 package com.superarh.tarefas_backend.service;
 
+import com.superarh.tarefas_backend.exception.ResourceNotFound;
 import com.superarh.tarefas_backend.model.ListTask;
 import com.superarh.tarefas_backend.model.StatusTask;
 import com.superarh.tarefas_backend.model.Task;
@@ -37,7 +38,7 @@ public class TaskService {
             newTask.setStatus(StatusTask.PENDENTE);
             return TaskMapper.INSTANCE.toDto(taskRepository.save(newTask));
         }
-        throw new RuntimeException("ListTask associado ao task não foi encontrado");
+        throw new ResourceNotFound("ListTask associado ao task não foi encontrado");
     }
 
 
@@ -45,12 +46,12 @@ public class TaskService {
 
         Optional<Task> taskOptional = taskRepository.findById(id);
         if (taskOptional.isEmpty()) {
-            throw new RuntimeException("Task com ID " + id + " não foi encontrado");
+            throw new ResourceNotFound("Task com ID " + id + " não foi encontrado");
         }
 
         Optional<ListTask> listTaskOptional = listTaskRepository.findById(taskUpdateDto.listTaskId());
         if (listTaskOptional.isEmpty()) {
-            throw new RuntimeException("ListTask com ID " + taskUpdateDto.listTaskId() + " não foi encontrado");
+            throw new ResourceNotFound("ListTask com ID " + taskUpdateDto.listTaskId() + " não foi encontrado");
         }
 
         Task updateTask = TaskMapper.INSTANCE.toUpdateEntity(taskUpdateDto);
@@ -61,7 +62,7 @@ public class TaskService {
     public void deleteTask(Long id){
         Optional<Task> taskOptional = taskRepository.findById(id);
         if (taskOptional.isEmpty()){
-            throw new RuntimeException("Task com ID "+id+" não foi encontrado");
+            throw new ResourceNotFound("Task com ID "+id+" não foi encontrado");
         }
         taskRepository.delete(taskOptional.get());
     }
@@ -76,7 +77,7 @@ public class TaskService {
     public TaskResponse startTask(Long idTask){
         Optional<Task> taskOptional = taskRepository.findById(idTask);
         if (taskOptional.isEmpty()){
-            throw new RuntimeException("Task não localizada!");
+            throw new ResourceNotFound("Task não localizada!");
         }
         Task updateTask = taskOptional.get();
         updateTask.setStatus(StatusTask.EXECUTANDO);
@@ -87,7 +88,7 @@ public class TaskService {
     public TaskResponse finishTask(Long idTask){
         Optional<Task> taskOptional = taskRepository.findById(idTask);
         if (taskOptional.isEmpty()){
-            throw new RuntimeException("Task não localizada!");
+            throw new ResourceNotFound("Task não localizada!");
         }
         Task updateTask = taskOptional.get();
         updateTask.setStatus(StatusTask.CONCLUIDO);
@@ -98,7 +99,7 @@ public class TaskService {
     public TaskResponse findTask(Long idTask) {
         Optional<Task> taskOptional = taskRepository.findById(idTask);
         if (taskOptional.isEmpty()){
-          throw new RuntimeException("Task não encontrado");
+          throw new ResourceNotFound("Task não encontrado");
         }
         return TaskMapper.INSTANCE.toDto(taskOptional.get());
     }

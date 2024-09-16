@@ -1,5 +1,6 @@
 package com.superarh.tarefas_backend.service;
 
+import com.superarh.tarefas_backend.exception.ResourceNotFound;
 import com.superarh.tarefas_backend.model.ListTask;
 import com.superarh.tarefas_backend.model.User;
 import com.superarh.tarefas_backend.model.dto.ListTask.ListTaskCreateDto;
@@ -39,7 +40,7 @@ public class ListTaskService {
             ListTask savedTask = listTaskRepository.save(newListTask);
             return  ListTaskMapper.INSTANCE.toDto(savedTask);
         }
-        throw new RuntimeException("Usuário associado a lista de tarefas não foi encontrado!");
+        throw new ResourceNotFound("Usuário associado a lista de tarefas não foi encontrado!");
     }
 
 
@@ -55,9 +56,9 @@ public class ListTaskService {
                 ListTask savedTask = listTaskRepository.save(updateListTask);
                 return  ListTaskMapper.INSTANCE.toDto(savedTask);
             }
-            throw new RuntimeException("ListTask não encontrado!");
+            throw new ResourceNotFound("ListTask não encontrado!");
         }
-        throw new RuntimeException("Usuário associado a lista de tarefas não foi encontrado!");
+        throw new ResourceNotFound("Usuário associado a lista de tarefas não foi encontrado!");
     }
 
     public List<ListTaskResponse> findAll(Long idUser) {
@@ -81,6 +82,6 @@ public class ListTaskService {
         if (listTaskOptional.isPresent()) {
             return ListTaskMapper.INSTANCE.toDto(listTaskOptional.get());
         }
-        throw new RuntimeException("ListTask não encontrado!");
+        throw new ResourceNotFound("ListTask não encontrado!");
     }
 }

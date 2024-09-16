@@ -1,5 +1,6 @@
 package com.superarh.tarefas_backend.service;
 
+import com.superarh.tarefas_backend.exception.ResourceNotFound;
 import com.superarh.tarefas_backend.model.User;
 import com.superarh.tarefas_backend.model.dto.user.UserCreateDto;
 import com.superarh.tarefas_backend.model.dto.user.UserResponse;
@@ -33,9 +34,9 @@ public class UserService {
                 User userUpdated = UserMapper.INSTANCE.toUpdateEntity(userUpdateDto);
                 return UserMapper.INSTANCE.toDto(userRepository.save(userUpdated));
             }
-            throw new RuntimeException("URI fora do padrão : ID em uri diferente de id em corpo da requisição");
+            throw new IllegalArgumentException("URI fora do padrão : ID em uri diferente de id em corpo da requisição");
         }
-        throw new RuntimeException("Usuário não encontrado!");
+        throw new ResourceNotFound("Usuário não encontrado!");
     }
 
     public UserResponse findById(Long id){
@@ -43,7 +44,7 @@ public class UserService {
         if (userOptional.isPresent()){
             return UserMapper.INSTANCE.toDto(userOptional.get());
         }
-        throw new RuntimeException("Usuario não encontrado!");
+        throw new ResourceNotFound("Usuario não encontrado!");
     }
 
 
