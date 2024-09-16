@@ -3,6 +3,7 @@ package com.superarh.tarefas_backend.model.dto.Task;
 import com.superarh.tarefas_backend.model.StatusTask;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 
 public record TaskCreateDto(
@@ -16,11 +17,11 @@ public record TaskCreateDto(
         @NotNull(message="Id ListTaks não pode ser vazio")
         Long listTaskId,
 
-         @Size(max= 50, message = "Tamanho máximo de campo é 50")
-         StatusTask status,
 
-         LocalDateTime dateStart,
+        StatusTask status,
 
-         LocalDateTime dateFinish
-         ){
+        LocalDateTime dateStart,
+
+        LocalDateTime dateFinish
+    ){
 }

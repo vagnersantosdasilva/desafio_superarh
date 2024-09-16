@@ -55,12 +55,12 @@ public class TaskController {
         return ResponseEntity.ok(taskService.findTask(idTask));
     }
 
-    @PutMapping("/task/{id}/start")
+    @PutMapping("/task/{idTask}/start")
     public ResponseEntity<TaskResponse> startTask(@PathVariable Long idTask){
         return ResponseEntity.ok(taskService.startTask(idTask));
     }
 
-    @PutMapping("/task/{id}/finish")
+    @PutMapping("/task/{idTask}/finish")
     public ResponseEntity<TaskResponse> finishTask(@PathVariable Long idTask){
         return ResponseEntity.ok(taskService.finishTask(idTask));
     }
